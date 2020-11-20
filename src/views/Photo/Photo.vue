@@ -1,24 +1,29 @@
 <template>
   <main class="primary-gradient flex justify-center align-center items-center">
-    <section class="text-center">
-      <h1 class="text-3xl md:text-5xl">
-        ¡Gracias por Participar en la experiencia!
-      </h1>
-
+    <section class="text-center md:text-left md:flex items-center">
       <div class="polaroid-container">
         <img :src="photoPath" alt="" />
       </div>
+      <div>
+        <h1 class="text-3xl md:text-5xl">
+          ¡Gracias por Participar
+          <br />
+          en la experiencia!
+        </h1>
 
-      <br />
-      <button @click="$router.push('/')" class="btn white primary--text mt-10">
-        Volver a Vivir la experiencia
-      </button>
+        <br />
 
-      <br />
-
-      <a :href="photoPath" target="_blank" download="navidad.png">
-        <button class="btn white primary--text mt-10">descargar</button>
-      </a>
+        <a :href="photoPath" target="_blank" download="navidad.png">
+          <button class="btn white primary--text mt-10">descargar foto</button>
+        </a>
+        <br />
+        <button
+          @click="$router.push('/')"
+          class="btn white primary--text mt-10"
+        >
+          Volver a Vivir la experiencia
+        </button>
+      </div>
     </section>
   </main>
 </template>
@@ -60,12 +65,12 @@ img {
   box-shadow: 0px 1px 30px rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 770px) {
   .polaroid-container {
     width: 60%;
     padding: 15px;
     margin: 20px;
-    padding-bottom: 50px;
+    padding-bottom: 70px;
   }
 }
 

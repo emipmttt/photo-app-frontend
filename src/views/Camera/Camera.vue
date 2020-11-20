@@ -1,6 +1,6 @@
 <template>
   <div class="camera-container">
-    <div class="camera-container__image">
+    <div ref="camera" class="camera-container__image">
       <Filter />
 
       <video
@@ -124,8 +124,8 @@ export default {
         this.streamCamera(stream);
         this.alertMessage = "";
       } catch (error) {
-        this.alertMessage = "No pudimos acceder a tu camara";
-        console.error("Oops. Something is broken.", error);
+        alert("no pudimos acceder a tu camara");
+        this.$route.push("/");
       }
     },
     streamCamera(stream) {
@@ -135,14 +135,48 @@ export default {
         this.$refs.video.srcObject = stream;
         this.alertMessage = "";
       } else {
-        this.alertMessage = "No pudimos acceder a tu camara";
+        alert("no pudimos acceder a tu camara");
+        this.$route.push("/");
       }
       this.$refs.video.play();
+    },
+    resizeCamera() {
+      let heightScreen = window.innerHeight || document.body.clientHeight;
+      if (this.$refs.video.clientHeight > heightScreen) {
+        const total = heightScreen;
+        const current = this.$refs.video.clientHeight;
+
+        const percent = (current * 100) / total;
+
+        var float = percent / 100;
+
+        this.$refs.camera.style.transform = `scale(${1 - (float - 1.1)})`;
+        // this.$refs.camera.style.transform = `scale(${1 - (float - 1)})`;
+        this.$refs.camera.style.marginTop = `-${parseInt(percent) * 1.5}px`;
+
+        // console.log(
+        //   "La camara es muy grande",
+        //   this.$refs.video.clientHeight,
+        //   screen.height
+        // );
+      } else {
+        this.$refs.camera.style.marginTop = `0px`;
+        this.$refs.camera.style.transform = `scale(1)`;
+
+        // console.log(
+        //   "La camara esta en rango",
+        //   this.$refs.video.clientHeight,
+        //   screen.height
+        // );
+      }
     },
   },
   mounted() {
     window.scrollTo(0, 0);
     this.initCamera();
+    window.onresize = this.resizeCamera;
+    this.$refs.video.addEventListener("loadeddata", this.resizeCamera);
+    this.resizeCamera();
   },
 };
 </script>
