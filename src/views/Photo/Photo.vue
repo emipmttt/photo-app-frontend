@@ -10,13 +10,17 @@
       <div>
         <h1 class="text-3xl md:text-5xl white--text"><i>Compartir</i></h1>
         <a
+          v-if="verifySupportShare()"
           :href="photoPath"
           target="_blank"
           download="navidad.png"
-          class="mr-4"
+          class="ma-4"
         >
           <button class="btn white primary--text mt-10">
-            <img :src="require('@/assets/img/Photo/instagram.png')" />
+            <img
+              style="width: 40px"
+              :src="require('@/assets/img/icons/share.svg')"
+            />
           </button>
         </a>
         <div
@@ -30,8 +34,14 @@
             target="_blank"
             download="navidad.png"
           >
-            <button class="btn white primary--text mt-10">
-              <img :src="require('@/assets/img/Photo/instagram.png')" />
+            <button
+              class="btn white primary--text mt-10"
+              style="background: #3a559f"
+            >
+              <img
+                :src="require('@/assets/img/icons/facebook.png')"
+                style="width: 40px"
+              />
             </button>
           </a>
         </div>
@@ -65,6 +75,13 @@ export default {
     };
   },
   methods: {
+    verifySupportShare() {
+      if (navigator.share) return true;
+      return false;
+    },
+    share() {
+      navigator.share({ title: "Colgate Santa", url: this.photoPath });
+    },
     encodeUrl() {
       var str = this.photoPath + "";
       str = encodeURIComponent(str)
@@ -100,7 +117,7 @@ img {
 
 .polaroid-container {
   display: inline-block;
-  width: 50%;
+  width: 65%;
   margin: 50px;
 
   box-shadow: 0px 1px 30px rgba(0, 0, 0, 0.5);

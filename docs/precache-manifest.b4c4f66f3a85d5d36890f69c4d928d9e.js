@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fbf2e76b2b9590e840b6",
-    "url": "css/app.d87c0d05.css"
+    "revision": "df546ee1ac0b2fbe13b8",
+    "url": "css/app.af316bb1.css"
   },
   {
     "revision": "90f285e373544db10f96dd3797d3da77",
@@ -36,6 +36,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "img/colgate-logo.2f5c2d3c.png"
   },
   {
+    "revision": "25563ad1cdf5fa12731f1427f931a018",
+    "url": "img/facebook.25563ad1.png"
+  },
+  {
     "revision": "3699881121f4e7d803141827520a0e16",
     "url": "img/flip_camera.36998811.svg"
   },
@@ -56,16 +60,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "img/santa-03.c1055c88.png"
   },
   {
-    "revision": "f29e917bff98faaf3db4a1fd4278d474",
+    "revision": "c953544674740f654479e5bab19a6a4a",
+    "url": "img/share.c9535446.svg"
+  },
+  {
+    "revision": "35a398a79c8b139e824b193c9bf369ef",
     "url": "index.html"
   },
   {
-    "revision": "fbf2e76b2b9590e840b6",
-    "url": "js/app.13301401.js"
+    "revision": "df546ee1ac0b2fbe13b8",
+    "url": "js/app.347011f5.js"
   },
   {
-    "revision": "d981b13c8d87cd974d0a",
-    "url": "js/chunk-vendors.5ba5a472.js"
+    "revision": "07b2b21c1b4b42d9af0f",
+    "url": "js/chunk-vendors.cda85941.js"
   },
   {
     "revision": "71e063f521be2510b830050a617d47ed",
