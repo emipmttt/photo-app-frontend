@@ -1,7 +1,9 @@
 <template>
   <div class="modal-counter">
     <!-- <img :src="require('@/assets/img/ball.png')" /> -->
-    <h1 class="white--text">{{ counter }}</h1>
+    <h1 class="white--text">
+      <i>{{ counter }}</i>
+    </h1>
   </div>
 </template>
 

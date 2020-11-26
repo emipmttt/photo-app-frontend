@@ -163,6 +163,9 @@ export default {
           this.showSnap = true;
           this.counter = 3;
           this.drawImage();
+          console.log(this.stream);
+          this.stream.getTracks().forEach((track) => track.stop());
+          this.$refs.video.pause();
           setTimeout(() => {
             this.showSnap = false;
           }, 1000);

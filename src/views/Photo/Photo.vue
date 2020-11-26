@@ -11,7 +11,7 @@
         <h1 class="text-3xl md:text-5xl white--text"><i>Compartir</i></h1>
         <a
           v-if="verifySupportShare()"
-          :href="photoPath"
+          @click="share"
           target="_blank"
           download="navidad.png"
           class="ma-4"
@@ -51,7 +51,7 @@
 
         <h1 class="text-3xl md:text-5xl white--text"><i>Guardar foto</i></h1>
 
-        <a :href="photoPath" target="_blank" download="navidad.png">
+        <a :href="photoPath" download="navidad.png" target="_blank">
           <button class="btn white primary--text mt-10">descargar foto</button>
         </a>
         <br />
