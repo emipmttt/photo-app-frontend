@@ -5,12 +5,26 @@
 
 @import 'https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Raleway&display=swap';
 
+@font-face {
+  font-family: 'Colgate Ready Bold';
+  src: url('../fonts/colgateready-bold-webfont.ttf')
+}
+
+@font-face {
+  font-family: 'Colgate Ready';
+  src: url('../fonts/colgateready-regular-webfont.ttf')
+}
+
 html {
-  font-family: Raleway
+  font-family: Colgate Ready;
 }
 
 main {
   min-height: 100vh
+}
+
+.colgate-font {
+  font-family: Colgate Ready;
 }
 
 h1,
@@ -19,5 +33,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Berkshire Swash;
+  font-family: Colgate Ready;
 }

@@ -12,9 +12,18 @@
     </div>
 
     <div class="camera-container__controls">
+      <span class="white--text">
+        <router-link to="/">
+          <img
+            style="width: 30px"
+            :src="require('@/assets/img/icons/arrow_back.svg')"
+          />
+        </router-link>
+      </span>
       <button @click="snap">
-        <img :src="require('@/assets/img/camera.svg')" alt="" />
+        <img :src="require('@/assets/img/icons/camera.svg')" alt="" />
       </button>
+      <ChangeCamera />
     </div>
   </div>
   <Counter :counter="counter" v-if="showCounter" />
@@ -24,14 +33,19 @@
 </template>
 
 <script>
+import api from "@/services/api";
+
+//components
+
 import Counter from "./components/Counter";
 import Filter from "./components/Filter";
-import api from "@/services/api";
+import ChangeCamera from "./components/ChangeCamera";
 
 export default {
   components: {
     Counter,
     Filter,
+    ChangeCamera,
   },
   data() {
     return {
@@ -125,7 +139,7 @@ export default {
         this.alertMessage = "";
       } catch (error) {
         alert("no pudimos acceder a tu camara");
-        this.$route.push("/");
+        this.$router.push("/");
       }
     },
     streamCamera(stream) {
@@ -136,7 +150,7 @@ export default {
         this.alertMessage = "";
       } else {
         alert("no pudimos acceder a tu camara");
-        this.$route.push("/");
+        this.$router.push("/");
       }
       this.$refs.video.play();
     },
@@ -190,11 +204,11 @@ video {
   background: #000;
   min-height: 100vh;
 
-  &__image {
-  }
-
   &__controls {
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
     bottom: 0px;
     padding: 5%;
