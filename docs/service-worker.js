@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.e26ea5d71338a4a4a5aa78f163a508a8.js"
+  "precache-manifest.22ee0414ca4c11a2d5bdd21baca6c4fc.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "photo-app-frontend"});

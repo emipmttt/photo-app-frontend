@@ -33,6 +33,7 @@
   <div v-if="showSnap" class="snap-animation">.</div>
 
   <canvas ref="canvas"></canvas>
+  <Loading v-if="loading" />
 </template>
 
 <script>
@@ -42,6 +43,7 @@ import api from "@/services/api";
 
 import Counter from "./components/Counter";
 import Filter from "./components/Filter";
+import Loading from "./components/Loading";
 import ChangeCamera from "./components/ChangeCamera";
 
 export default {
@@ -49,6 +51,7 @@ export default {
     Counter,
     Filter,
     ChangeCamera,
+    Loading,
   },
   data() {
     return {
@@ -64,6 +67,8 @@ export default {
       showSnap: false,
       counter: 3,
       counterInterval: null,
+
+      loading: false,
     };
   },
   methods: {
@@ -150,7 +155,7 @@ export default {
       });
 
       window.scrollTo(0, 0);
-
+      this.loading = false;
       this.$router.push("/foto" + response.data.data.replace(/storage/g, ""));
     },
     snap() {
@@ -166,6 +171,7 @@ export default {
           console.log(this.stream);
           this.stream.getTracks().forEach((track) => track.stop());
           this.$refs.video.pause();
+          this.loading = true;
           setTimeout(() => {
             this.showSnap = false;
           }, 1000);
