@@ -23,7 +23,7 @@
       <button @click="snap">
         <img :src="require('@/assets/img/icons/camera.svg')" alt="" />
       </button>
-      <ChangeCamera />
+      <ChangeCamera @change="changeCamera($event)" />
     </div>
   </div>
   <Counter :counter="counter" v-if="showCounter" />
@@ -64,6 +64,36 @@ export default {
     };
   },
   methods: {
+    changeCamera(value) {
+      if (typeof this.stream !== "undefined") {
+        this.stream.getTracks().forEach((track) => {
+          track.stop();
+        });
+      }
+      const videoConstraints = {};
+      videoConstraints.deviceId = { exact: value };
+      const constraints = {
+        video: videoConstraints,
+        audio: false,
+      };
+
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then((stream) => {
+          if (stream) {
+            this.$refs.video.srcObject = stream;
+            this.alertMessage = "";
+          } else {
+            alert("no pudimos acceder a tu camara");
+            this.$router.push("/");
+          }
+          this.$refs.video.play();
+        })
+        .then()
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     async drawImage() {
       this.$refs.canvas.style.display = "initial";
       this.$refs.canvas.width = video.clientWidth;

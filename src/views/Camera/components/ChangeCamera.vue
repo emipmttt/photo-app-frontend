@@ -16,13 +16,16 @@ export default {
   },
   methods: {
     changeDevices() {
-      if (this.cameras.length - 1 + (this.cameraSelected + 1)) {
+      if (this.cameras.length - 1 > this.cameraSelected + 1) {
         this.cameraSelected = this.cameraSelected + 1;
       } else {
         this.cameraSelected = 0;
       }
+      alert(this.cameraSelected + " " + this.cameras[this.cameraSelected]);
+      this.$emit("change", this.cameras[this.cameraSelected]);
     },
     gotDevices(mediaDevices) {
+      console.log("lel");
       this.cameras = [];
       var cameras = [];
 
@@ -31,11 +34,12 @@ export default {
           cameras.push(mediaDevice.deviceId);
         }
       });
+      this.cameras = cameras;
       console.log(this.cameras);
     },
-    mounted() {
-      this.gotDevices();
-    },
+  },
+  mounted() {
+    navigator.mediaDevices.enumerateDevices().then(this.gotDevices);
   },
 };
 </script>
