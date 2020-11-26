@@ -1,17 +1,45 @@
 <template>
-  <main class="primary-gradient flex justify-center align-center items-center">
+  <main
+    class="primary flex justify-center align-center items-center"
+    :style="`background-image:url('${require('@/assets/img/Tutorial/pattern.png')}');  background-position:center ;`"
+  >
     <section class="text-center md:text-left md:flex items-center">
       <div class="polaroid-container">
         <img :src="photoPath" alt="" />
       </div>
       <div>
-        <h1 class="text-3xl md:text-5xl">
-          ¡Gracias por Participar
-          <br />
-          en la experiencia!
-        </h1>
+        <h1 class="text-3xl md:text-5xl white--text"><i>Compartir</i></h1>
+        <a
+          :href="photoPath"
+          target="_blank"
+          download="navidad.png"
+          class="mr-4"
+        >
+          <button class="btn white primary--text mt-10">
+            <img :src="require('@/assets/img/Photo/instagram.png')" />
+          </button>
+        </a>
+        <div
+          class="fb-share-button"
+          data-href="https://emipmttt.github.io/photo-app-frontend/#/foto/1606361246632.png"
+          data-layout="button"
+          data-size="small"
+        >
+          <a
+            :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeUrl()}&amp;src=sdkpreparse`"
+            target="_blank"
+            download="navidad.png"
+          >
+            <button class="btn white primary--text mt-10">
+              <img :src="require('@/assets/img/Photo/instagram.png')" />
+            </button>
+          </a>
+        </div>
 
         <br />
+        <br />
+
+        <h1 class="text-3xl md:text-5xl white--text"><i>Guardar foto</i></h1>
 
         <a :href="photoPath" target="_blank" download="navidad.png">
           <button class="btn white primary--text mt-10">descargar foto</button>
@@ -33,11 +61,27 @@ export default {
   data() {
     return {
       photoPath: "",
+      sharePath: "",
     };
   },
-  mounted() {
+  methods: {
+    encodeUrl() {
+      var str = this.sharePath + "";
+      str = encodeURIComponent(str)
+        .replace(/!/g, "%21")
+        .replace(/'/g, "%27")
+        .replace(/\(/g, "%28")
+        .replace(/\)/g, "%29")
+        .replace(/\*/g, "%2A")
+        .replace(/~/g, "%7E");
+
+      return str;
+    },
+  },
+  created() {
     this.photoPath =
       "https://photo-filter-backend.herokuapp.com/" + this.$route.params.photo;
+    this.sharePath = location.href;
 
     // response.data.data.replace(/storage/g, "");
     // const imgPath =
@@ -58,20 +102,10 @@ img {
   display: inline-block;
   width: 50%;
   margin: 50px;
-  padding: 30px;
-  padding-bottom: 130px;
-  background: linear-gradient(#fff, #c1c1c1);
 
   box-shadow: 0px 1px 30px rgba(0, 0, 0, 0.5);
-}
 
-@media (max-width: 770px) {
-  .polaroid-container {
-    width: 60%;
-    padding: 15px;
-    margin: 20px;
-    padding-bottom: 70px;
-  }
+  overflow: hidden;
 }
 
 body {

@@ -1,6 +1,6 @@
 <template>
   <div class="modal-counter">
-    <img :src="require('@/assets/img/ball.png')" />
+    <!-- <img :src="require('@/assets/img/ball.png')" /> -->
     <h1 class="white--text">{{ counter }}</h1>
   </div>
 </template>

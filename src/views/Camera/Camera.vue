@@ -1,5 +1,8 @@
 <template>
   <div class="camera-container">
+    <div class="camera-container__logo-container primary">
+      <img :src="require('@/assets/img/Tutorial/colgate-logo.png')" alt="" />
+    </div>
     <div ref="camera" class="camera-container__image">
       <Filter />
 
@@ -226,6 +229,9 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  background: #000;
+}
 video {
   width: 100%;
 }
@@ -233,6 +239,16 @@ video {
 .camera-container {
   background: #000;
   min-height: 100vh;
+
+  &__logo-container {
+    position: fixed;
+    top: 0;
+    left: 10px;
+    width: 80px;
+    z-index: 2;
+    padding: 20px 10px;
+    border-radius: 0 0 35px 35px;
+  }
 
   &__controls {
     position: fixed;
@@ -246,7 +262,7 @@ video {
     background: linear-gradient(
       transparent,
       rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.7) 80%
+      rgba(0, 0, 0, 0.9) 80%
     );
     button {
       background: white;

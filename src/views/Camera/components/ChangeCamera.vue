@@ -35,7 +35,7 @@ export default {
         }
       });
       this.cameras = cameras;
-      console.log(this.cameras);
+      alert(this.cameras);
     },
   },
   mounted() {
