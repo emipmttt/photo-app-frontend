@@ -21,7 +21,7 @@ export default {
       } else {
         this.cameraSelected = 0;
       }
-      alert(this.cameraSelected + " " + this.cameras[this.cameraSelected]);
+      // alert(this.cameraSelected + " " + this.cameras[this.cameraSelected]);
       this.$emit("change", this.cameras[this.cameraSelected]);
     },
     gotDevices(mediaDevices) {
@@ -35,7 +35,7 @@ export default {
         }
       });
       this.cameras = cameras;
-      alert(this.cameras);
+      // alert(this.cameras);
     },
   },
   mounted() {

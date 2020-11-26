@@ -1,7 +1,7 @@
 <template>
   <div class="camera-container">
-    <div class="camera-container__logo-container primary">
-      <img :src="require('@/assets/img/Tutorial/colgate-logo.png')" alt="" />
+    <div class="camera-container__logo-container">
+      <img :src="require('@/assets/img/colgate-logo-background.png')" alt="" />
     </div>
     <div ref="camera" class="camera-container__image">
       <Filter />
@@ -119,6 +119,18 @@ export default {
         // parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
         filter.clientWidth,
         filter.clientHeight
+      );
+
+      this.context.drawImage(
+        document.querySelector(".camera-container__logo-container img"),
+        20,
+        0,
+        // parseInt(filter.style.left.replace(/px/, "")) + filter.clientWidth,
+        // parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
+        document.querySelector(".camera-container__logo-container img")
+          .clientWidth,
+        document.querySelector(".camera-container__logo-container img")
+          .clientHeight
       );
 
       let bodyHeight = document.querySelector("body").clientHeight;
@@ -241,12 +253,11 @@ video {
   min-height: 100vh;
 
   &__logo-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 10px;
     width: 80px;
     z-index: 2;
-    padding: 20px 10px;
     border-radius: 0 0 35px 35px;
   }
 
