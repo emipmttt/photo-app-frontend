@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
   <title><%= htmlWebpackPlugin.options.title %></title>
   <meta name="theme-color" content="#f50005" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Colgate Santa" />
+  <meta property="og:description" content="También puedes tomarte tu foto con santa en <%= BASE_URL %>" />
+
   <style>
     body {
       background: #f50005
@@ -17,12 +22,13 @@
 </head>
 
 <body>
-  <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v9.0" nonce="EbNioLNL"></script>
+
   <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="app"></div>
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v9.0" nonce="EbNioLNL"></script>
   <!-- built files will be auto injected -->
 </body>
 

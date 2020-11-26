@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     encodeUrl() {
-      var str = this.sharePath + "";
+      var str = this.photoPath + "";
       str = encodeURIComponent(str)
         .replace(/!/g, "%21")
         .replace(/'/g, "%27")
