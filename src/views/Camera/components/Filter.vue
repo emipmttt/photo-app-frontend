@@ -1,18 +1,33 @@
 <template>
-  <img
-    draggable="false"
-    ref="filter"
-    id="filter"
-    style="left: 0px; top: 0px"
-    class="filter"
-    :src="require('@/assets/img/s1.gif')"
-    @mousedown="mouseDown"
-    @touchstart="mouseDown"
-  />
+  <transition-group name="fade" tag="div">
+    <template v-for="(santa, index) in santaItems">
+      <img
+        v-if="currentSanta == index"
+        :key="index"
+        draggable="false"
+        ref="filter"
+        id="filter"
+        style="left: 0px; top: 0px"
+        class="filter"
+        :src="santa"
+      />
+    </template>
+  </transition-group>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      currentSanta: 0,
+      santaItems: [
+        require("@/assets/img/Camera/santa-01.png"),
+        require("@/assets/img/Camera/santa-02.png"),
+        require("@/assets/img/Camera/santa-03.png"),
+      ],
+      timeout: 2000,
+    };
+  },
   methods: {
     mouseUp() {
       window.removeEventListener("mousemove", this.divMove, true);
@@ -30,18 +45,31 @@ export default {
       div.style.top = e.clientY - div.clientHeight / 2 + "px";
       div.style.left = e.clientX - div.clientWidth / 2 + "px";
     },
+    changeImage() {
+      if (this.santaItems.length - 1 >= this.currentSanta + 1) {
+        this.currentSanta++;
+        setTimeout(() => {
+          this.changeImage();
+        }, this.timeout);
+      } else {
+        console.log(this.santaItems.length - 1, this.currentSanta + 1);
+      }
+    },
   },
   mounted() {
-    window.addEventListener("mouseup", this.mouseUp, false);
-    window.addEventListener("touchleave", this.mouseUp, false);
-    document.querySelector("#video").addEventListener("click", this.divMove);
+    setTimeout(() => {
+      this.changeImage();
+    }, this.timeout);
+    // window.addEventListener("mouseup", this.mouseUp, false);
+    // window.addEventListener("touchleave", this.mouseUp, false);
+    // document.querySelector("#video").addEventListener("click", this.divMove);
   },
 };
 </script>
 
 <style>
 .filter {
-  width: 50vw;
+  width: 100%;
   position: absolute;
 }
 </style>

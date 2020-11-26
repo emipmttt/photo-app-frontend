@@ -25,7 +25,6 @@ export default {
       this.$emit("change", this.cameras[this.cameraSelected]);
     },
     gotDevices(mediaDevices) {
-      console.log("lel");
       this.cameras = [];
       var cameras = [];
 
