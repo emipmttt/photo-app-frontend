@@ -1,6 +1,6 @@
 <template>
   <main
-    class="primary flex justify-center align-center items-center"
+    class="primary flex justify-center align-center items-center pb-10"
     :style="`background-image:url('${require('@/assets/img/Tutorial/pattern.png')}');  background-position:center ;`"
   >
     <section class="text-center md:text-left md:flex items-center">

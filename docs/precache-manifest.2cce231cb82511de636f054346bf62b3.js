@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "36f1d7fdc7a9394d487a",
-    "url": "css/app.73bc3527.css"
+    "revision": "24a38fa86b50b9d36812",
+    "url": "css/app.5b823737.css"
   },
   {
     "revision": "90f285e373544db10f96dd3797d3da77",
@@ -56,20 +56,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "img/santa-02.fae3126a.png"
   },
   {
-    "revision": "c1055c88b705381e5b8a28817548bf2f",
-    "url": "img/santa-03.c1055c88.png"
+    "revision": "fe135fb5eee3534c8109de13ce39ac9d",
+    "url": "img/santa-03.fe135fb5.png"
   },
   {
     "revision": "c953544674740f654479e5bab19a6a4a",
     "url": "img/share.c9535446.svg"
   },
   {
-    "revision": "d5fd10fe0bcb4a0d1094ba6373084106",
+    "revision": "febd938da38a6ba619f908d750e4e6ae",
     "url": "index.html"
   },
   {
-    "revision": "36f1d7fdc7a9394d487a",
-    "url": "js/app.2a25571a.js"
+    "revision": "24a38fa86b50b9d36812",
+    "url": "js/app.0db8a194.js"
   },
   {
     "revision": "dad390c601e23dd22ce9",

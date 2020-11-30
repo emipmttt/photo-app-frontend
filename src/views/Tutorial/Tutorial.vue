@@ -30,7 +30,7 @@
         />
       </div>
 
-      <div class="text-center mt-10">
+      <div class="text-center my-10">
         <h1 class="font-normal italic text-3xl md:text-5xl white--text">
           ¡Tomate una <br />
           foto con Santa!
