@@ -3,7 +3,9 @@
     <main
       v-if="splash"
       class="first-step flex justify-center align-center items-center"
-      :style="`background:url('${require('@/assets/img/Tutorial/bg-screen-1.png')}'); background-size: cover; background-position:center ;`"
+      :style="
+        `background:url('${require('@/assets/img/Tutorial/bg-screen-1.png')}'); background-size: cover; background-position:center ;`
+      "
     >
       <img
         class="first-step__logo"
@@ -13,7 +15,9 @@
     <main
       v-else
       class="second-step primary"
-      :style="`background-image:url('${require('@/assets/img/Tutorial/pattern.png')}'); background-size: cover; background-position:center ;`"
+      :style="
+        `background-image:url('${require('@/assets/img/Tutorial/pattern.png')}'); background-size: cover; background-position:center ;`
+      "
     >
       <div class="second-step__santa">
         <div class="second-step__santa__logo-container primary">
@@ -30,7 +34,7 @@
         />
       </div>
 
-      <div class="text-center my-10">
+      <div class="text-center mt-10 pb-10">
         <h1 class="font-normal italic text-3xl md:text-5xl white--text">
           ¡Tomate una <br />
           foto con Santa!
