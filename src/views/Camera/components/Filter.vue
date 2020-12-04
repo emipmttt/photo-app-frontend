@@ -21,11 +21,12 @@ export default {
     return {
       currentSanta: 0,
       santaItems: [
-        require("@/assets/img/Camera/santa-01.gif"),
+        // require("@/assets/img/Camera/santa-01.png"),
         // require("@/assets/img/Camera/santa-02.png"),
         // require("@/assets/img/Camera/santa-03.png"),
+        require("@/assets/img/Camera/santa-01.gif"),
       ],
-      timeout: 2000,
+      timeout: 1000,
     };
   },
   methods: {
@@ -70,6 +71,7 @@ export default {
 <style>
 .filter {
   width: 100%;
+  height: 100%;
   position: absolute;
 }
 </style>
