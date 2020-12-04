@@ -69,6 +69,8 @@ export default {
       counterInterval: null,
 
       loading: false,
+
+      scanInterval: null,
     };
   },
   methods: {
@@ -102,7 +104,7 @@ export default {
           console.error(error);
         });
     },
-    async drawImage() {
+    async drawImage(logo) {
       this.$refs.canvas.style.display = "initial";
       this.$refs.canvas.width = video.clientWidth;
       this.$refs.canvas.height = video.clientHeight;
@@ -126,21 +128,26 @@ export default {
         filter.clientHeight
       );
 
-      this.context.drawImage(
-        document.querySelector(".camera-container__logo-container img"),
-        20,
-        0,
-        // parseInt(filter.style.left.replace(/px/, "")) + filter.clientWidth,
-        // parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
-        document.querySelector(".camera-container__logo-container img")
-          .clientWidth,
-        document.querySelector(".camera-container__logo-container img")
-          .clientHeight
-      );
+      if (logo) {
+        this.context.drawImage(
+          document.querySelector(".camera-container__logo-container img"),
+          20,
+          0,
+          // parseInt(filter.style.left.replace(/px/, "")) + filter.clientWidth,
+          // parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
+          document.querySelector(".camera-container__logo-container img")
+            .clientWidth,
+          document.querySelector(".camera-container__logo-container img")
+            .clientHeight
+        );
+      }
 
       let bodyHeight = document.querySelector("body").clientHeight;
 
-      window.scrollTo(0, document.querySelector("video").clientHeight * 2);
+      if (logo) {
+        window.scrollTo(0, document.querySelector("video").clientHeight * 2);
+      }
+
       console.log(
         parseInt(filter.style.left.replace(/px/, "")),
         parseInt(filter.style.top.replace(/px/, "")),
@@ -150,13 +157,20 @@ export default {
 
       const imageData = this.$refs.canvas.toDataURL("image/png");
 
-      const response = await api.post("/file", {
-        image: imageData,
-      });
+      if (logo) {
+        let response = await api.post("/file", {
+          image: imageData,
+        });
 
-      window.scrollTo(0, 0);
-      this.loading = false;
-      this.$router.push("/foto" + response.data.data.replace(/storage/g, ""));
+        window.scrollTo(0, 0);
+        this.loading = false;
+        this.$router.push("/foto" + response.data.data.replace(/storage/g, ""));
+      } else {
+        let response = await api.post("/logo", {
+          image: imageData,
+        });
+        return response;
+      }
     },
     snap() {
       this.showCounter = true;
@@ -167,7 +181,7 @@ export default {
           this.showCounter = false;
           this.showSnap = true;
           this.counter = 3;
-          this.drawImage();
+          this.drawImage(true);
           console.log(this.stream);
           this.stream.getTracks().forEach((track) => track.stop());
           this.$refs.video.pause();
@@ -196,12 +210,19 @@ export default {
         this.$router.push("/");
       }
     },
+    scan() {
+      this.scanInterval = setInterval(async () => {
+        const brands = await this.drawImage(false);
+        console.log(brands);
+      }, 1000);
+    },
     streamCamera(stream) {
       this.stream = stream;
 
       if (stream) {
         this.$refs.video.srcObject = stream;
         this.alertMessage = "";
+        this.scan();
       } else {
         alert("no pudimos acceder a tu camara");
         this.$router.push("/");

@@ -10,7 +10,7 @@
 <script>
 export default {
   props: {
-    counter: Boolean,
+    counter: Number,
   },
 };
 </script>

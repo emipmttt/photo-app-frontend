@@ -21,9 +21,9 @@ export default {
     return {
       currentSanta: 0,
       santaItems: [
-        require("@/assets/img/Camera/santa-01.png"),
-        require("@/assets/img/Camera/santa-02.png"),
-        require("@/assets/img/Camera/santa-03.png"),
+        require("@/assets/img/Camera/santa-01.gif"),
+        // require("@/assets/img/Camera/santa-02.png"),
+        // require("@/assets/img/Camera/santa-03.png"),
       ],
       timeout: 2000,
     };
