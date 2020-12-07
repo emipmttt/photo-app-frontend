@@ -3,8 +3,12 @@
     <div class="camera-container__logo-container">
       <img :src="require('@/assets/img/colgate-logo-background.png')" alt="" />
     </div>
-    <div v-show="openCamera" ref="camera" class="camera-container__image">
-      <Filter />
+    <div
+      :class="{ 'hide-camera': openCamera }"
+      ref="camera"
+      class="camera-container__image"
+    >
+      <Filter v-if="!loading" />
       <video
         id="video"
         ref="video"
@@ -71,7 +75,7 @@ export default {
       counter: 3,
       counterInterval: null,
 
-      loading: false,
+      loading: true,
 
       // scan colgate product with an setInterval
       scanInterval: null,
@@ -251,20 +255,20 @@ export default {
         // this.$refs.camera.style.transform = `scale(${1 - (float - 1)})`;
         this.$refs.camera.style.marginTop = `-${parseInt(percent) * 1.5}px`;
 
-        // console.log(
-        //   "La camara es muy grande",
-        //   this.$refs.video.clientHeight,
-        //   screen.height
-        // );
+        console.log(
+          "La camara es muy grande",
+          this.$refs.video.clientHeight,
+          screen.height
+        );
       } else {
         this.$refs.camera.style.marginTop = `0px`;
         this.$refs.camera.style.transform = `scale(1)`;
 
-        // console.log(
-        //   "La camara esta en rango",
-        //   this.$refs.video.clientHeight,
-        //   screen.height
-        // );
+        console.log(
+          "La camara esta en rango",
+          this.$refs.video.clientHeight,
+          screen.height
+        );
       }
     },
   },
@@ -274,9 +278,8 @@ export default {
     window.onresize = this.resizeCamera;
     this.$refs.video.addEventListener("loadeddata", () => {
       this.resizeCamera();
-      this.openCamera = true;
+      this.loading = false;
     });
-    this.resizeCamera();
   },
 };
 </script>
