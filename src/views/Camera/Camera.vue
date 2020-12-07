@@ -3,9 +3,8 @@
     <div class="camera-container__logo-container">
       <img :src="require('@/assets/img/colgate-logo-background.png')" alt="" />
     </div>
-    <div ref="camera" class="camera-container__image">
+    <div v-show="openCamera" ref="camera" class="camera-container__image">
       <Filter />
-
       <video
         id="video"
         ref="video"
@@ -26,7 +25,11 @@
       <button @click="snap">
         <img :src="require('@/assets/img/icons/camera.svg')" alt="" />
       </button>
-      <ChangeCamera @change="changeCamera($event)" />
+      <ChangeCamera
+        @hideCamera="openCamera = false"
+        @showCamera="openCamera = true"
+        @change="changeCamera($event)"
+      />
     </div>
   </div>
   <Counter :counter="counter" v-if="showCounter" />
@@ -70,7 +73,11 @@ export default {
 
       loading: false,
 
+      // scan colgate product with an setInterval
       scanInterval: null,
+
+      // to show video
+      openCamera: false,
     };
   },
   methods: {
@@ -169,6 +176,7 @@ export default {
         let response = await api.post("/logo", {
           image: imageData,
         });
+        console.log(response);
         return response;
       }
     },
@@ -222,7 +230,7 @@ export default {
       if (stream) {
         this.$refs.video.srcObject = stream;
         this.alertMessage = "";
-        this.scan();
+        // this.scan();
       } else {
         alert("no pudimos acceder a tu camara");
         this.$router.push("/");
@@ -264,7 +272,10 @@ export default {
     window.scrollTo(0, 0);
     this.initCamera();
     window.onresize = this.resizeCamera;
-    this.$refs.video.addEventListener("loadeddata", this.resizeCamera);
+    this.$refs.video.addEventListener("loadeddata", () => {
+      this.resizeCamera();
+      this.openCamera = true;
+    });
     this.resizeCamera();
   },
 };

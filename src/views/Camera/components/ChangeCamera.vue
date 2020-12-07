@@ -16,6 +16,7 @@ export default {
   },
   methods: {
     changeDevices() {
+      this.$emit("hideCamera");
       if (this.cameras.length - 1 > this.cameraSelected + 1) {
         this.cameraSelected = this.cameraSelected + 1;
       } else {

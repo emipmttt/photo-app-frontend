@@ -9,7 +9,7 @@
         id="filter"
         style="left: 0px; top: 0px"
         class="filter"
-        :src="santa"
+        :src="santa.path"
       />
     </template>
   </transition-group>
@@ -19,14 +19,13 @@
 export default {
   data() {
     return {
-      currentSanta: 0,
+      currentSanta: -1,
       santaItems: [
+        { path: require("@/assets/img/Camera/santa-01.gif"), timeout: 6000 },
+        { path: require("@/assets/img/Camera/santa-03.png"), timeout: 3000 },
         // require("@/assets/img/Camera/santa-01.png"),
         // require("@/assets/img/Camera/santa-02.png"),
-        // require("@/assets/img/Camera/santa-03.png"),
-        require("@/assets/img/Camera/santa-01.gif"),
       ],
-      timeout: 1000,
     };
   },
   methods: {
@@ -51,16 +50,14 @@ export default {
         this.currentSanta++;
         setTimeout(() => {
           this.changeImage();
-        }, this.timeout);
+        }, this.santaItems[this.currentSanta].timeout);
       } else {
         console.log(this.santaItems.length - 1, this.currentSanta + 1);
       }
     },
   },
   mounted() {
-    setTimeout(() => {
-      this.changeImage();
-    }, this.timeout);
+    this.changeImage();
     // window.addEventListener("mouseup", this.mouseUp, false);
     // window.addEventListener("touchleave", this.mouseUp, false);
     // document.querySelector("#video").addEventListener("click", this.divMove);
