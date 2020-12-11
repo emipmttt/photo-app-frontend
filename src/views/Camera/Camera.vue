@@ -15,6 +15,7 @@
       class="camera-container__image"
     >
       <Filter v-if="!loading" v-show="showFilters" />
+      <Scanner v-if="!loading && showScanner" v-show="!showFilters" />
       <video
         id="video"
         ref="video"
@@ -56,6 +57,7 @@ import api from "@/services/api";
 
 import Counter from "./components/Counter";
 import Filter from "./components/Filter";
+import Scanner from "./components/Scanner";
 import Loading from "./components/Loading";
 import ChangeCamera from "./components/ChangeCamera";
 
@@ -67,6 +69,7 @@ export default {
     Filter,
     ChangeCamera,
     Loading,
+    Scanner,
   },
   data() {
     return {
@@ -92,6 +95,7 @@ export default {
 
       // to show filters
       showFilters: false,
+      showScanner: true,
       showHelpMessage: false,
     };
   },
@@ -194,6 +198,7 @@ export default {
         });
         return response;
       }
+      this.$refs.canvas.style.display = "none";
     },
     snap() {
       this.showCounter = true;
@@ -244,6 +249,7 @@ export default {
       if (findLogo) {
         this.showFilters = true;
         this.showHelpMessage = false;
+        this.showScanner = false;
         return;
       }
 
