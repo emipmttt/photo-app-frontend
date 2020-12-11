@@ -3,12 +3,18 @@
     <div class="camera-container__logo-container">
       <img :src="require('@/assets/img/colgate-logo-background.png')" alt="" />
     </div>
+    <div class="modal" v-if="showHelpMessage">
+      <p>
+        Muestra un producto colgate, donde aparezca el logo de colgate
+        claramente.
+      </p>
+    </div>
     <div
       :class="{ 'hide-camera': openCamera }"
       ref="camera"
       class="camera-container__image"
     >
-      <Filter v-if="!loading" />
+      <Filter v-if="!loading" v-show="showFilters" />
       <video
         id="video"
         ref="video"
@@ -53,6 +59,8 @@ import Filter from "./components/Filter";
 import Loading from "./components/Loading";
 import ChangeCamera from "./components/ChangeCamera";
 
+import { mapMutations, mapState } from "vuex";
+
 export default {
   components: {
     Counter,
@@ -73,17 +81,21 @@ export default {
       showCounter: false,
       showSnap: false,
       counter: 3,
-      counterInterval: null,
 
       loading: true,
 
       // scan colgate product with an setInterval
-      scanInterval: null,
+      scanCounter: 0,
 
       // to show video
       openCamera: false,
+
+      // to show filters
+      showFilters: false,
+      showHelpMessage: false,
     };
   },
+
   methods: {
     changeCamera(value) {
       if (typeof this.stream !== "undefined") {
@@ -180,7 +192,6 @@ export default {
         let response = await api.post("/logo", {
           image: imageData,
         });
-        console.log(response);
         return response;
       }
     },
@@ -222,11 +233,32 @@ export default {
         this.$router.push("/");
       }
     },
-    scan() {
-      this.scanInterval = setInterval(async () => {
-        const brands = await this.drawImage(false);
-        console.log(brands);
-      }, 1000);
+    async scan() {
+      const brands = await this.drawImage(false);
+      console.log(brands);
+
+      const findLogo = brands.data.data.find((el) => {
+        return el.description == "Colgate";
+      });
+
+      if (findLogo) {
+        this.showFilters = true;
+        this.showHelpMessage = false;
+        return;
+      }
+
+      if (this.scanCounter == 1) {
+        this.showHelpMessage = true;
+      } else if (this.scanCounter == 10) {
+        return this.$router.push("/");
+      }
+
+      this.scanCounter++;
+
+      setTimeout(() => {
+        console.log(this.scanCounter);
+        this.scan();
+      }, 10);
     },
     streamCamera(stream) {
       this.stream = stream;
@@ -234,7 +266,9 @@ export default {
       if (stream) {
         this.$refs.video.srcObject = stream;
         this.alertMessage = "";
-        // this.scan();
+        setTimeout(() => {
+          this.scan();
+        }, 3000);
       } else {
         alert("no pudimos acceder a tu camara");
         this.$router.push("/");
@@ -255,20 +289,20 @@ export default {
         // this.$refs.camera.style.transform = `scale(${1 - (float - 1)})`;
         this.$refs.camera.style.marginTop = `-${parseInt(percent) * 1.5}px`;
 
-        console.log(
-          "La camara es muy grande",
-          this.$refs.video.clientHeight,
-          screen.height
-        );
+        // console.log(
+        //   "La camara es muy grande",
+        //   this.$refs.video.clientHeight,
+        //   screen.height
+        // );
       } else {
         this.$refs.camera.style.marginTop = `0px`;
         this.$refs.camera.style.transform = `scale(1)`;
 
-        console.log(
-          "La camara esta en rango",
-          this.$refs.video.clientHeight,
-          screen.height
-        );
+        // console.log(
+        //   "La camara esta en rango",
+        //   this.$refs.video.clientHeight,
+        //   screen.height
+        // );
       }
     },
   },
@@ -285,83 +319,5 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-  background: #000;
-}
-video {
-  width: 100%;
-}
-
-.camera-container {
-  background: #000;
-  min-height: 100vh;
-
-  &__logo-container {
-    position: absolute;
-    top: 0;
-    left: 10px;
-    width: 80px;
-    z-index: 2;
-    border-radius: 0 0 35px 35px;
-  }
-
-  &__controls {
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    bottom: 0px;
-    padding: 5%;
-    text-align: center;
-    background: linear-gradient(
-      transparent,
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.9) 80%
-    );
-    button {
-      background: white;
-      padding: 25px;
-      border-radius: 50%;
-      transition: 0.5s;
-
-      img {
-        width: 35px;
-      }
-    }
-
-    button:hover {
-      outline: none;
-      box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.7);
-      transition: 0.3s;
-    }
-
-    button:focus {
-      outline: none;
-    }
-  }
-}
-
-.snap-animation {
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  top: 0;
-  opacity: 0;
-  background: white;
-  animation: snap 0.5s;
-}
-
-@keyframes snap {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-body {
-  overflow: hidden;
-}
+@import "./Camera.scss";
 </style>
