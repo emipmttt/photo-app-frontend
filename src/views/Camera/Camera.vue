@@ -14,7 +14,7 @@
       ref="camera"
       class="camera-container__image"
     >
-      <Filter v-if="!loading" v-show="showFilters" />
+      <Filter v-if="!loading && showFilters" />
       <video
         id="video"
         ref="video"
@@ -141,15 +141,17 @@ export default {
 
       var filter = document.querySelector("#filter");
 
-      this.context.drawImage(
-        filter,
-        parseInt(filter.style.left.replace(/px/, "")),
-        parseInt(filter.style.top.replace(/px/, "")),
-        // parseInt(filter.style.left.replace(/px/, "")) + filter.clientWidth,
-        // parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
-        filter.clientWidth,
-        filter.clientHeight
-      );
+      if (logo) {
+        this.context.drawImage(
+          filter,
+          parseInt(filter.style.left.replace(/px/, "")),
+          parseInt(filter.style.top.replace(/px/, "")),
+          // parseInt(filter.style.left.replace(/px/, "")) + filter.clientWidth,
+          // parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
+          filter.clientWidth,
+          filter.clientHeight
+        );
+      }
 
       if (logo) {
         this.context.drawImage(
@@ -171,12 +173,12 @@ export default {
         window.scrollTo(0, document.querySelector("video").clientHeight * 2);
       }
 
-      console.log(
-        parseInt(filter.style.left.replace(/px/, "")),
-        parseInt(filter.style.top.replace(/px/, "")),
-        parseInt(filter.style.left.replace(/px/, "")) + filter.clientWidth,
-        parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
-      );
+      // console.log(
+      //   parseInt(filter.style.left.replace(/px/, "")),
+      //   parseInt(filter.style.top.replace(/px/, "")),
+      //   parseInt(filter.style.left.replace(/px/, "")) + filter.clientWidth,
+      //   parseInt(filter.style.top.replace(/px/, "")) + filter.clientHeight
+      // );
 
       const imageData = this.$refs.canvas.toDataURL("image/png");
 
@@ -235,10 +237,9 @@ export default {
     },
     async scan() {
       const brands = await this.drawImage(false);
-      console.log(brands);
 
       const findLogo = brands.data.data.find((el) => {
-        return el.description == "Colgate";
+        return el.description.toLowerCase().includes("colgate");
       });
 
       if (findLogo) {
@@ -249,16 +250,12 @@ export default {
 
       if (this.scanCounter == 1) {
         this.showHelpMessage = true;
-      } else if (this.scanCounter == 10) {
+      } else if (this.scanCounter == 5) {
         return this.$router.push("/");
       }
 
       this.scanCounter++;
-
-      setTimeout(() => {
-        console.log(this.scanCounter);
-        this.scan();
-      }, 10);
+      this.scan();
     },
     streamCamera(stream) {
       this.stream = stream;
