@@ -13,6 +13,7 @@ export default {};
   height: 100%;
   background: rgba(0, 140, 255, 0.4);
   position: fixed;
+  transition: 0.5s;
   animation: blue-filter 2s infinite linear;
 }
 
@@ -24,6 +25,7 @@ export default {};
   background: linear-gradient(transparent, rgba(0, 140, 255, 0.6), transparent);
   transition: 0.6s;
   animation: scanner 5s infinite;
+  transition: 0.5s;
 }
 
 @keyframes scanner {

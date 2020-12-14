@@ -185,6 +185,7 @@ export default {
       // );
 
       const imageData = this.$refs.canvas.toDataURL("image/png");
+      this.$refs.canvas.style.display = "none";
 
       if (logo) {
         let response = await api.post("/file", {
@@ -200,7 +201,6 @@ export default {
         });
         return response;
       }
-      this.$refs.canvas.style.display = "none";
     },
     snap() {
       this.showCounter = true;
